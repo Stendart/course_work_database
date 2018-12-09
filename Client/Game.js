@@ -34,7 +34,7 @@ class MapMountain extends Map {
         super(i, j);
         this.protectionBonus = 20;
         this.pointOnStep = 10;
-        this.image = 'images/Mountain.jpg';
+        this.image = '../images/Mountain.jpg';
     }
 }
 
@@ -43,7 +43,7 @@ class MapForest extends Map {
         super(i, j);
         this.protectionBonus = 5;
         this.pointOnStep = 5;
-        this.image = 'images/Forest.jpg';
+        this.image = '../images/Forest.jpg';
     }
 }
 
@@ -52,7 +52,7 @@ class MapPlain extends Map {
         super(i, j);
         this.protectionBonus = 0;
         this.pointOnStep = 1;
-        this.image = 'images/Plain.jpg';
+        this.image = '../images/Plain.jpg';
     }
 }
 
@@ -274,23 +274,23 @@ class Robot {
 
     rotateRob(i, j){        //======ToDo
         if(this.j > j ){
-            this.sprite = "images/robotLeft.png";
+            this.sprite = "../images/feavyRobotLeft.png";
             this.skin.style.backgroundImage = 'url(' + this.sprite + ')';
             console.log("this.skin.style.left = " + this.skin.style.left + ' j =' + j);
 
         }else if(this.j < j ){
-            this.sprite = "images/robotRight.png";
+            this.sprite = "../images/feavyRobotRight.png";
             this.skin.style.backgroundImage = 'url(' + this.sprite + ')';
             console.log("this.skin.style.left = " + this.skin.style.left + ' j =' + j);
 
         }else if(this.i > i ){
-            this.sprite = "images/robot1.png";
+            this.sprite = "../images/feavyRobot.png";
             this.skin.style.backgroundImage = 'url(' + this.sprite + ')';
             //this.rob.render();
             console.log("this.skin.style.top = " + this.skin.style.top + 'i = ' + i);
 
         }else if(this.i < i ){
-            this.sprite = "images/robotForw.png";
+            this.sprite = "../images/feavyRobotForw.png";
             this.skin.style.backgroundImage = 'url(' + this.sprite + ')';
             //this.rob.render();
             console.log("this.skin.style.top = " + this.skin.style.top + 'i = ' + i);
@@ -309,7 +309,7 @@ class feavyRobot extends Robot {
         this.HP = 100;
         this.damage = 25;
         this.def = 30;
-        this.sprite = 'images/robot1.png';
+        this.sprite = '../images/feavyRobot.png';
         this.percentTired = 100;
 
         this.width = 50;

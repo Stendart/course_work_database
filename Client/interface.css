@@ -1,0 +1,12 @@
+.back{
+    background: #a7a3c3;
+}
+form {
+    width: 50%;
+    margin:0 auto;
+    text-align: center;
+}
+
+form label, button{
+    font-size: 3em;
+}
