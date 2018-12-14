@@ -43,7 +43,7 @@ class MapForest extends Map {
         super(i, j);
         this.protectionBonus = 5;
         this.pointOnStep = 5;
-        this.image = '../images/Forest.jpg';
+        this.image = 'images/Forest.jpg';
     }
 }
 
