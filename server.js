@@ -25,9 +25,47 @@ app.get('/repo', function (req, res) {
 
 const connectionString = 'Driver={SQL Server Native Client 11.0}; Server=np:\\\\.\\pipe\\MSSQL$SQLEXPRESS\\sql\\query; Database={GameDB}; Trusted_Connection=Yes;';
 
+function getTexture(titleTexture){
+    sql.open(connectionString, function (err, con) {
+        if (err) {
+            console.log('failed to open ' + err.message);
+            return
+        }
+
+        con.query(`SELECT Quantity_energy_on_step, Def_bonus, Texture_link FROM Texture WHERE Title = ${titleTexture}`, function (err, rows) {
+            if (err) {
+                console.log(err.message);
+                return
+            }
+            //console.log(rows);
+            return rows;
+            //res.send(rows);
+        })
+    });
+}
+
+app.get('/getPlain',(req,res)=> { //Текстуры Mount
+    //res.send(getTexture('Plain'));
+    sql.open(connectionString, function (err, con) {
+        if (err) {
+            console.log('failed to open ' + err.message);
+            return
+        }
+
+        con.query('SELECT Quantity_energy_on_step, Def_bonus, Texture_link FROM Texture WHERE Title = \'Plain\'', function (err, rows) {
+            if (err) {
+                console.log(err.message);
+                return
+            }
+            //console.log(rows);
+            //return rows;
+            res.send(rows);
+        })
+    });
+});
 
 app.get('/getMount',(req,res)=>{ //Текстуры Mount
-
+    //res.send(getTexture('Mount'));
     sql.open(connectionString, function (err, con) {
         if (err) {
             console.log('failed to open ' + err.message);

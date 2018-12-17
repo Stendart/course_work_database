@@ -1,38 +1,20 @@
 const screen = document.getElementById('scene');
 const socket = io.connect('http://localhost:3000');
-class Map {
-    constructor(i,j) {
-        this.protectionBonus;
-        this.pointOnStep;
-        this.image;
 
-        this.i = i;
-        this.j = j;
-
-        this.mapTileOnClick = this.mapTileOnClick.bind(this);
-    }
-
-    mapTileOnClick(e){
-        console.clear()
-        //console.log("Click", e);
-        console.log('Map class click ' + this.i + " j: "+ this.j);
-        try {
-            dto.transfer(this.i, this.j, this.pointOnStep); //=======================================
-        }
-        catch(e) {
-            console.log('Конец карты');
-        }
-    } 
-
-    calcPointOnStep() {
-
-    }
-}
 
 function Init(){
     (function GetMap() {
 
-                //Запрос на текстуру Forest
+        fetch('http://localhost:3000/getPlain')
+            .then((response) =>
+                //console.log(response.json());
+                response.json()
+            ).then(data =>{                         //Объект Plain
+            //console.log(data[0].Texture_link);
+            return data}).then((Plain) =>{
+
+
+        //Запрос на текстуру Forest
         fetch('http://localhost:3000/getForest')
             .then((response) =>
                 //console.log(response.json());
@@ -41,49 +23,55 @@ function Init(){
             //console.log(data[0].Texture_link);
             return data}).then((Forest) =>{
 
-                //Запрос на текстуру Mount
-        fetch('http://localhost:3000/getMount')
-            .then((response) =>
-                //console.log(response.json());
-                response.json()
-            ).then(data =>{                         //Объект Mount
-                //console.log(data[0].Texture_link);
-                return data;
-                }).then((Mount) =>{
-                    Play(Mount,Forest);
-                    //console.log(Forest);
-                    })}); //Возможно, со скобкми вызвать надо!
-    })();
-}
-Init();
-function Play(Mount,Forest){
-    class MapMountain extends Map {
-        constructor(i, j) {
-            super(i, j);
-
-            //socket.emit('generateMapMount', {location: i, j}); //Объект не нужен
-
-        /*    fetch('http://localhost:3000/getMount')
+            //Запрос на текстуру Mount
+            fetch('http://localhost:3000/getMount')
                 .then((response) =>
                     //console.log(response.json());
                     response.json()
                 ).then(data =>{                         //Объект Mount
-                console.log(data[0].Texture_link);
-//this.image = '../' + data[0].Texture_link;
-                console.log('Получение данных с сервера!!!');
-            });
+                //console.log(data[0].Texture_link);
+                return data;
+            }).then((Mount) =>{
+                Play(Plain,Mount,Forest);
+                //console.log(Forest);
+            })})}); //Возможно, со скобкми вызвать надо!
+    })();
+}
+Init();
+function Play(Plain,Mount,Forest){
 
-            fetch('http://localhost:3000/obj')
-                .then((response) =>
-                    //console.log(response.json());
-                    response.json()
-                ).then(data =>{
-                console.log(data);
-            });*/
-            /* .then(function(myBlob) {
-             let objectURL = URL.createObjectURL(myBlob);
-             myImage.src = objectURL;
-         });*/
+    class Map {
+        constructor(i,j) {
+            this.protectionBonus;
+            this.pointOnStep;
+            this.image;
+
+            this.i = i;
+            this.j = j;
+
+            this.mapTileOnClick = this.mapTileOnClick.bind(this);
+        }
+
+        mapTileOnClick(e){
+            console.clear()
+            //console.log("Click", e);
+            console.log('Map class click ' + this.i + " j: "+ this.j);
+            try {
+                dto.transfer(this.i, this.j, this.pointOnStep); //=======================================
+            }
+            catch(e) {
+                console.log('Конец карты');
+            }
+        }
+
+        calcPointOnStep() {
+
+        }
+    }
+
+    class MapMountain extends Map {
+        constructor(i, j) {
+            super(i, j);
 
             console.log('location: ' + i,j);
             this.protectionBonus = 20;
@@ -108,7 +96,7 @@ function Play(Mount,Forest){
             super(i, j);
             this.protectionBonus = 0;
             this.pointOnStep = 1;
-            this.image = '../images/Plain.jpg';
+            this.image = '../'+Plain[0].Texture_link;
         }
     }
 
@@ -306,7 +294,7 @@ function Play(Mount,Forest){
 
             robotsArmy.robotsArray.forEach((el, i)=> {
                 //el.getRobot().skin.classList.remove('selected');   //|||||||||||||||||     JSON.stringify(this.elDispl)
-            })
+            });
             //console.log('This is a classList ' + this.skin.classList);
             console.log('This is a display ' + this.elDispl.unitHealth);
 
