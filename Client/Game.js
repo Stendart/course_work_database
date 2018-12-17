@@ -50,7 +50,7 @@ class MapMountain extends Map {
                 console.log('Не Глобально?' + context.image);
             });*/
 
-        var request = new XMLHttpRequest();
+      /*  var request = new XMLHttpRequest();
         request.open("POST", "http://localhost:3000/test", false);
         request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
         request.send();
@@ -59,7 +59,19 @@ class MapMountain extends Map {
         else if(request.status==404)
             console.log("Ресурс не найден");
         else
-            console.log('Странный ответ');
+            console.log('Странный ответ');*/
+
+        fetch('http://localhost:3000/test')
+            .then((response) =>
+                //console.log(response.json());
+                response.json()
+        ).then(data =>{
+            console.log(data);
+        });
+           /* .then(function(myBlob) {
+            let objectURL = URL.createObjectURL(myBlob);
+            myImage.src = objectURL;
+        });*/
 
 console.log('location: ' + i,j);
 console.log('Глобально?' + p);

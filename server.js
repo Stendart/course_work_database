@@ -20,10 +20,16 @@ app.get('/repo', function (req, res) {
     res.sendFile(__dirname + '/Client/logInfo.html');
 });
 
-app.post('/test', (req, res)=>{
-console.log('Пришел ПОСТ');
-res.end('Proverka');
+
+
+app.get('/test',(req,res)=>{
+    res.send({msg:'hello'});
 });
+
+/*app.post('/test', (req, res)=>{
+console.log('Пришел ПОСТ');
+res.send('Proverka');
+});*/
 
 app.use(express.static(__dirname + '/Client'));
 
