@@ -21,22 +21,60 @@ app.get('/repo', function (req, res) {
 });
 
 
+//Запросы на данные
 
-app.get('/test',(req,res)=>{
-    res.send({msg:'hello'});
+const connectionString = 'Driver={SQL Server Native Client 11.0}; Server=np:\\\\.\\pipe\\MSSQL$SQLEXPRESS\\sql\\query; Database={GameDB}; Trusted_Connection=Yes;';
+
+
+app.get('/getMount',(req,res)=>{ //Текстуры Mount
+
+    sql.open(connectionString, function (err, con) {
+        if (err) {
+            console.log('failed to open ' + err.message);
+            return
+        }
+
+        con.query('SELECT Quantity_energy_on_step, Def_bonus, Texture_link FROM Texture WHERE Title = \'Mount\'', function (err, rows) {
+            if (err) {
+                console.log(err.message);
+                return
+            }
+            //console.log(rows);
+            //return rows;
+            res.send(rows);
+        })
+    });
+
+    //res.send({msg:'hello'});
 });
 
-/*app.post('/test', (req, res)=>{
-console.log('Пришел ПОСТ');
-res.send('Proverka');
-});*/
+app.get('/getForest',(req,res)=>{
+    sql.open(connectionString, function (err, con) {
+        if (err) {
+            console.log('failed to open ' + err.message);
+            return
+        }
+
+        con.query('SELECT Quantity_energy_on_step, Def_bonus, Texture_link FROM Texture WHERE Title = \'Forest\'', function (err, rows) {
+            if (err) {
+                console.log(err.message);
+                return
+            }
+            //console.log(rows);
+            //return rows;
+            res.send(rows);
+        })
+    });
+});
+
+
 
 app.use(express.static(__dirname + '/Client'));
 
 
 
 
-const connectionString = 'Driver={SQL Server Native Client 11.0}; Server=np:\\\\.\\pipe\\MSSQL$SQLEXPRESS\\sql\\query; Database={GameDB}; Trusted_Connection=Yes;';
+//const connectionString = 'Driver={SQL Server Native Client 11.0}; Server=np:\\\\.\\pipe\\MSSQL$SQLEXPRESS\\sql\\query; Database={GameDB}; Trusted_Connection=Yes;';
 const query = 'SELECT * FROM Robots WHERE Name_of_type = \'Heavy robot\'';
 /*''SELECT Quantity_energy_on_step, Def_bonus FROM Texture WHERE Title = \'Mount\''*/
 
