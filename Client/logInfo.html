@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>GameLog</title>
+    <style>
+        input{
+            position: absolute;
+            left: 30%;
+        }
+        form{
+            margin: auto;
+            width: 60%;
+        }
+        fieldset{
+            position: relative;
+        }
+    </style>
+</head>
+<body>
+<form action="">
+    <fieldset>
+        <legend>
+            Логи действий:
+        </legend>
+        <small>ИД раунда</small> <input type="text" size="20" /> <br /><br />
+        <small>ИД робота</small> <input type="text" size="20" /> <br /><br />
+        <small>Кол-во ХП</small> <input type="text" size="20" /><br /><br />
+        <small>Кол-во энергии</small> <input type="text" size="20" /> <br /><br />
+        <small>X</small>  <input type="text" size="20" /><br /><br />
+        <small>Y</small> <input type="text" size="20" /> <br /><br />
+        <small>Урон</small> <input type="text" size="20" /> <br /><br />
+        <button id="back">Назад</button>
+        <button id="next">Вперед</button>
+    </fieldset>
+</form>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="logInfo.js"></script>
+</body>
+</html>

@@ -1,5 +1,7 @@
 const screen = document.getElementById('scene');
-
+const socket = io.connect('http://localhost:3000');
+p = 0;
+let context;
 class Map {
     constructor(i,j) {
         this.protectionBonus;
@@ -32,9 +34,38 @@ class Map {
 class MapMountain extends Map {
     constructor(i, j) {
         super(i, j);
+            context = this;
+
+            socket.emit('generateMapMount', {location: i, j}); //Объект не нужен
+            //await
+
+          /*  var currentTime = new Date().getTime();
+            while (currentTime + 500 >= new Date().getTime()) {
+            }*/
+            /*socket.on('acceptedTextureMount', (data) => {
+                console.log('Server\'s event '  /* + new Date().getMilliseconds());
+                console.log(data.texture);
+                p = data;
+                context.image = '../'+data.texture;
+                console.log('Не Глобально?' + context.image);
+            });*/
+
+        var request = new XMLHttpRequest();
+        request.open("POST", "http://localhost:3000/test", false);
+        request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        request.send();
+        if(request.status==200)
+            console.log("Текст ответа: " +request.response);
+        else if(request.status==404)
+            console.log("Ресурс не найден");
+        else
+            console.log('Странный ответ');
+
+console.log('location: ' + i,j);
+console.log('Глобально?' + p);
         this.protectionBonus = 20;
         this.pointOnStep = 10;
-        this.image = '../images/Mountain.jpg';
+        //this.image = '../Texture/Mountain.jpg';
     }
 }
 
@@ -218,7 +249,6 @@ function getMapTileSize() {
 }
 
 
-
 class Robot {
     constructor(id, elDispl){
         this.HP;
@@ -377,7 +407,7 @@ class Display {
     }
 
     fillingArray() {
-        const {unitCard, unitImage, unitHealth, unitStamina} = generateUnitCardInUID('robot1.png', 100, 100);
+        const {unitCard, unitImage, unitHealth, unitStamina} = generateUnitCardInUID('../images/feavyRobot.png', 100, 100);
         let arr = unitCard;
         //array = unitCard;
         arr.unitImage = unitImage; 
@@ -469,3 +499,4 @@ function changeHealth(unitHealth, unitHealthValue) {
     unitHealth.setAttribute('value', unitHealthValue + '%');
     unitHealth.style.background = 'linear-gradient(90deg, #ff0000' + unitHealthValue + '%, transparent 0%)';
 }
+//setInterval(function(){console.log('Последний?' + p)}, 1000);
