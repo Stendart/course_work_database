@@ -3,6 +3,7 @@ const app = express();
 const server = require('http').createServer(app).listen(3000);
 const sql = require('msnodesqlv8');//msnodesqlv8
 const io = require('socket.io')(server);
+const bodyParser = require('body-parser');
 //require('./logic');
 
 
@@ -87,8 +88,6 @@ app.get('/getPlain',(req,res)=> { //Текстуры Mount
 });
 
 
-
-
 app.get('/getMount',(req,res)=>{ //Текстуры Mount
     //res.send(getTexture('Mount'));
     sql.open(connectionString, function (err, con) {
@@ -129,6 +128,31 @@ app.get('/getForest',(req,res)=>{
         })
     });
 });
+app.use(bodyParser.json());
+app.post('/getInf',(req, res) => {
+    console.log(req.body);
+
+    sql.open(connectionString, function (err, con) {
+        if (err) {
+            console.log('failed to open ' + err.message);
+            return
+        }
+
+        con.query(`INSERT ActionInRound (Battle_ID, Robot_ID, Quantity_HP, Quantity_energy, PositionX,PositionY)  
+            VALUES (\'1\', \'${req.body.id}\', ${req.body.hp}, ${req.body.energy}, ${req.body.x}, ${req.body.y})`, function (err) {
+            if (err) {
+                console.log(err.message);
+                //return
+            }
+            //console.log(rows);
+            //return rows;
+            //res.send(rows);
+        })
+    });
+
+
+});
+
 
 
 

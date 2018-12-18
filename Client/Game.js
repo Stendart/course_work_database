@@ -172,6 +172,22 @@ function Play(Plain,Mount,Forest, MRobot){
 
 
 
+
+
+                        fetch('http://localhost:3000/getInf', {
+                            method: 'post',
+                            headers: {
+                                'Accept': 'application/json, text/plain, */*',
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({id: this.rob.id,x:i ,y:j, energy: this.rob.percentTired, hp:this.rob.HP})});
+
+
+
+
+
+
+
                         this.rob.moveTo(i, j);
                         console.log("Abs i " + Math.abs(this.rob.i - i));
                         console.log("Abs j " + Math.abs(this.rob.j - j));

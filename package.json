@@ -10,6 +10,7 @@
   "author": "Ioann",
   "license": "ISC",
   "dependencies": {
+    "body-parser": "^1.18.3",
     "express": "^4.16.4",
     "msnodesqlv8": "^0.6.11",
     "mssql": "^4.3.0",
