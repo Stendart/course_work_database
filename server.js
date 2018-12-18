@@ -44,6 +44,28 @@ function getTexture(titleTexture){
     });
 }
 
+app.get('/getRobot',(req,res)=>{ //Текстуры Robot
+    //res.send(getTexture('Mount'));
+    sql.open(connectionString, function (err, con) {
+        if (err) {
+            console.log('failed to open ' + err.message);
+            return
+        }
+
+        con.query('SELECT Full_HP, Full_energy, Texture_link FROM Robots WHERE Name_of_type = \'Medium robot\'', function (err, rows) {
+            if (err) {
+                console.log(err.message);
+                return
+            }
+            //console.log(rows);
+            //return rows;
+            res.send(rows);
+        })
+    });
+
+    //res.send({msg:'hello'});
+});
+
 app.get('/getPlain',(req,res)=> { //Текстуры Mount
     //res.send(getTexture('Plain'));
     sql.open(connectionString, function (err, con) {
@@ -63,6 +85,9 @@ app.get('/getPlain',(req,res)=> { //Текстуры Mount
         })
     });
 });
+
+
+
 
 app.get('/getMount',(req,res)=>{ //Текстуры Mount
     //res.send(getTexture('Mount'));

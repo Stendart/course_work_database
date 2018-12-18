@@ -5,6 +5,16 @@ const socket = io.connect('http://localhost:3000');
 function Init(){
     (function GetMap() {
 
+        fetch('http://localhost:3000/getRobot')
+            .then((response) =>
+                //console.log(response.json());
+                response.json()
+            ).then(data =>{                         //Объект Robot
+            //console.log(data[0].Texture_link);
+            return data}).then((Robot) =>{
+
+
+        //Запрос на текстуру Plain
         fetch('http://localhost:3000/getPlain')
             .then((response) =>
                 //console.log(response.json());
@@ -32,13 +42,13 @@ function Init(){
                 //console.log(data[0].Texture_link);
                 return data;
             }).then((Mount) =>{
-                Play(Plain,Mount,Forest);
+                Play(Plain,Mount,Forest, Robot);
                 //console.log(Forest);
-            })})}); //Возможно, со скобкми вызвать надо!
+            })})})}); //Возможно, со скобкми вызвать надо!
     })();
 }
 Init();
-function Play(Plain,Mount,Forest){
+function Play(Plain,Mount,Forest, MRobot){
 
     class Map {
         constructor(i,j) {
@@ -154,14 +164,14 @@ function Play(Plain,Mount,Forest){
 
         transfer(i, j, pointOnStep){
 
-
-
-
             if(this.rob !== undefined){
                 if(this.pointOnStep(pointOnStep)){
-                    this.rob.percentTired -= pointOnStep;
+                    this.rob.percentTired -= pointOnStep;   //Вычитание энергии при шаге
 
-                    if( Math.abs(this.rob.i - i) <= 1 && Math.abs(this.rob.j - j) <= 1){
+                    if( Math.abs(this.rob.i - i) <= 1 && Math.abs(this.rob.j - j) <= 1){        //Проверка на дальность хода
+
+
+
                         this.rob.moveTo(i, j);
                         console.log("Abs i " + Math.abs(this.rob.i - i));
                         console.log("Abs j " + Math.abs(this.rob.j - j));
@@ -317,23 +327,23 @@ function Play(Plain,Mount,Forest){
 
         rotateRob(i, j){        //======ToDo
             if(this.j > j ){
-                this.sprite = "../images/feavyRobotLeft.png";
+                this.sprite = "../Texture/feavyRobotLeft.png";
                 this.skin.style.backgroundImage = 'url(' + this.sprite + ')';
                 console.log("this.skin.style.left = " + this.skin.style.left + ' j =' + j);
 
             }else if(this.j < j ){
-                this.sprite = "../images/feavyRobotRight.png";
+                this.sprite = "../Texture/feavyRobotRight.png";
                 this.skin.style.backgroundImage = 'url(' + this.sprite + ')';
                 console.log("this.skin.style.left = " + this.skin.style.left + ' j =' + j);
 
             }else if(this.i > i ){
-                this.sprite = "../images/feavyRobot.png";
+                this.sprite = "../Texture/feavyRobot.png";
                 this.skin.style.backgroundImage = 'url(' + this.sprite + ')';
                 //this.rob.render();
                 console.log("this.skin.style.top = " + this.skin.style.top + 'i = ' + i);
 
             }else if(this.i < i ){
-                this.sprite = "../images/feavyRobotForw.png";
+                this.sprite = "../Texture/Medium_robot.png";
                 this.skin.style.backgroundImage = 'url(' + this.sprite + ')';
                 //this.rob.render();
                 console.log("this.skin.style.top = " + this.skin.style.top + 'i = ' + i);
@@ -352,7 +362,7 @@ function Play(Plain,Mount,Forest){
             this.HP = 100;
             this.damage = 25;
             this.def = 30;
-            this.sprite = '../images/feavyRobot.png';
+            this.sprite = '../' + MRobot[0].Texture_link;//Texture/Medium_robot.png';
             this.percentTired = 100;
 
             this.width = 50;
