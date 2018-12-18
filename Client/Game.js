@@ -83,6 +83,17 @@ function Play(Plain,Mount,Forest, MRobot){
         constructor(i, j) {
             super(i, j);
 
+
+           /* fetch('http://localhost:3000/getTextureMountain', {
+                method: 'post',
+                headers: {
+                    'Accept': 'application/json, text/plain, /*',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({i: i, j:j, textureID: 1})});*/
+
+
+
             console.log('location: ' + i,j);
             this.protectionBonus = 20;
             this.pointOnStep = 10;
@@ -95,6 +106,16 @@ function Play(Plain,Mount,Forest, MRobot){
     class MapForest extends Map {
         constructor(i, j) {
             super(i, j);
+
+           /* fetch('http://localhost:3000/getTextureForest', {
+                method: 'post',
+                headers: {
+                    'Accept': 'application/json, text/plain, /*',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({i: i, j:j, textureID: 2})});*/
+
+
             this.protectionBonus = 5;
             this.pointOnStep = 5;
             this.image = '../'+Forest[0].Texture_link;
@@ -104,6 +125,16 @@ function Play(Plain,Mount,Forest, MRobot){
     class MapPlain extends Map {
         constructor(i, j) {
             super(i, j);
+
+            /*fetch('http://localhost:3000/getTexturePlain', {
+                method: 'post',
+                headers: {
+                    'Accept': 'application/json, text/plain, /*',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({i: i, j:j, textureID: 3})});*/
+
+
             this.protectionBonus = 0;
             this.pointOnStep = 1;
             this.image = '../'+Plain[0].Texture_link;
@@ -171,9 +202,6 @@ function Play(Plain,Mount,Forest, MRobot){
                     if( Math.abs(this.rob.i - i) <= 1 && Math.abs(this.rob.j - j) <= 1){        //Проверка на дальность хода
 
 
-
-
-
                         fetch('http://localhost:3000/getInf', {
                             method: 'post',
                             headers: {
@@ -181,10 +209,6 @@ function Play(Plain,Mount,Forest, MRobot){
                                 'Content-Type': 'application/json'
                             },
                             body: JSON.stringify({id: this.rob.id,x:i ,y:j, energy: this.rob.percentTired, hp:this.rob.HP})});
-
-
-
-
 
 
 

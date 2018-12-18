@@ -128,7 +128,9 @@ app.get('/getForest',(req,res)=>{
         })
     });
 });
+
 app.use(bodyParser.json());
+
 app.post('/getInf',(req, res) => {
     console.log(req.body);
 
@@ -153,6 +155,76 @@ app.post('/getInf',(req, res) => {
 
 });
 
+
+app.post('/getTextureMountain',(req, res) => {
+    console.log(req.body);
+
+    sql.open(connectionString, function (err, con) {
+        if (err) {
+            console.log('failed to open ' + err.message);
+            return
+        }
+
+        con.query(`UPDATE BattleMap SET Texture_ID = ${req.body.textureID} WHERE Square_number = ${req.body.i*10 + req.body.j}`, function (err) {
+            if (err) {
+                console.log(err.message);
+                //return
+            }
+            //console.log(rows);
+            //return rows;
+            //res.send(rows);
+        })
+    });
+
+
+});
+
+app.post('/getTextureForest',(req, res) => {
+    console.log(req.body);
+
+  /*  sql.open(connectionString, function (err, con) {
+        if (err) {
+            console.log('failed to open ' + err.message);
+            return
+        }
+
+        con.query(`UPDATE BattleMap SET Texture_ID = ${req.body.textureID} WHERE Square_number = ${req.body.i*10 + req.body.j}`, function (err) {
+            if (err) {
+                console.log(err.message);
+                //return
+            }
+            //console.log(rows);
+            //return rows;
+            //res.send(rows);
+        });
+        con.close();
+    });*/
+
+
+});
+
+app.post('/getTexturePlain',(req, res) => {
+    console.log(req.body);
+
+    sql.open(connectionString, function (err, con) {
+        if (err) {
+            console.log('failed to open ' + err.message);
+            return
+        }
+
+        con.query(`UPDATE BattleMap SET Texture_ID = ${req.body.textureID} WHERE Square_number = ${req.body.i*10 + req.body.j}`, function (err) {
+            if (err) {
+                console.log(err.message);
+                //return
+            }
+            //console.log(rows);
+            //return rows;
+            //res.send(rows);
+        })
+    });
+
+
+});
 
 
 
